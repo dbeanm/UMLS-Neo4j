@@ -1,0 +1,17 @@
+﻿Col.,Description
+CUI1,Unique identifier of first concept
+AUI1,Unique identifier of first atom
+STYPE1,"The name of the column in MRCONSO.RRF that contains the identifier used for the first element in the relationship, i.e. AUI, CODE, CUI, SCUI, SDUI."
+REL,Relationship of second concept or atom to first concept or atom
+CUI2,Unique identifier of second concept
+AUI2,Unique identifier of second atom
+STYPE2,"The name of the column in MRCONSO.RRF that contains the identifier used for the second element in the relationship, i.e. AUI, CODE, CUI, SCUI, SDUI."
+RELA,Additional (more specific) relationship label (optional)
+RUI,Unique identifier of relationship
+SRUI,"Source asserted relationship identifier, if present"
+SAB,"Abbreviated source name of the source of relationship. Maximum field length is 20 alphanumeric characters. Two source abbreviations are assigned: Root Source Abbreviation (RSAB) — short form, no version information, for example, AI/RHEUM, 1993, has an RSAB of ""AIR"". Versioned Source Abbreviation (VSAB) — includes version information, for example, AI/RHEUM, 1993, has an VSAB of ""AIR93"". Official source names, RSABs, and VSABs are included on the UMLS Source Vocabulary Documentation page."
+SL,Source of relationship labels
+RG,Relationship group. Used to indicate that a set of relationships should be looked at in conjunction.
+DIR,Source asserted directionality flag. Y indicates that this is the direction of the relationship in its source; N indicates that it is not; a blank indicates that it is not important or has not yet been determined.
+SUPPRESS,"Suppressible flag. Reflects the suppressible status of the relationship. See also SUPPRESS in MRCONSO.RRF, MRDEF.RRF, and MRSAT.RRF."
+CVF,Content View Flag. Bit field used to flag rows included in Content View. This field is a varchar field to maximize the number of bits available for use.
