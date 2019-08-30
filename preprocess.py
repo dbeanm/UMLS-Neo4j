@@ -1,7 +1,7 @@
 import csv, os
 
 output_conso_file = "MRCONSO.processed.csv"
-output_rel_file ="'MRREL.processed.csv"
+output_rel_file = "MRREL.processed.csv"
 output_path = "."
 
 input_path = "/mnt/datastore/umls/2017AB/META/"
@@ -24,22 +24,24 @@ with open("MRREL_definition.csv", 'rb') as f:
     for line in reader:
         rel_definition.append(line[0])
 
+print "process concepts"
 out = open(os.path.join(output_path, output_conso_file), 'w')
 writer = csv.writer(out)
 cols = ['CUI:ID', 'name', ':LABEL']
 writer.writerow(cols)
 count = 0
 exists = set()
-with open(os.path.join(input_path, input_umls_file)) as f:
+with open(os.path.join(input_path, input_conso_file)) as f:
     for line in f:
         parts = dict(zip(conso_definition, line.split("|")))
-        if parts['CUI'] in done:
+        if parts['CUI'] in exists:
             continue
         if parts['LAT'] == "ENG" and parts['TS'] == 'P':
             row = [parts['CUI'], parts['STR'], 'Concept']
             writer.writerow(row)
             exists.add(parts['CUI'])
 out.close()
+print "saved %s concepts" % len(exists)
 
 print "process relationships"
 out = open(os.path.join(output_path, output_rel_file), 'w')
@@ -58,4 +60,6 @@ with open(os.path.join(input_path, input_rel_file)) as f:
             if parts['RELA'] != '':
                 row = [parts['CUI2'], parts['CUI1'], parts['RELA']]
                 writer.writerow(row)
+            count += 1
 out.close()
+print "processed %s relationships" % count
