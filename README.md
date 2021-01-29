@@ -1,3 +1,25 @@
+# UPDATE Neo4j 4.x bulk import and docker
+Work in progress to optimise but working.
+
+In neo4j 4.x you can't copy databases around as files/directories any more. 
+
+Also if you run with docker and do `docker exec -it [container name] bash` and then run the import, you end up with databases that cannot be started, are unavailable, permissions errors, etc.
+
+This is because you're running as `root` when you `docker exec` which leaves you with databases owned by `root` when they need to be owned by `neo4j`
+
+To bulk import with neo4j-admin and end up with a working database:
+
+1. start neo4j container with import and data volumes mapped to host
+2. `sudo docker exec -it --user=neo4j [container name] bash`
+ - now you are the neo4j user 
+ - run the neo4j-admin import command loading into [database name]
+ - exit
+4. stop the container
+5. start a new container with at least the data volume mapped and set `--env NEO4J_dbms_active__database=[database name]`
+6. in the neo4j browser, hard refresh and log in
+- should now be connected to [database name]
+
+# Neo4j 3.x
 1. Preprocess MRCONSO and MRREL with preprocess.py
 2. Copy the output into neo4j_import directory
 3. Use neo4j-admin bulk importer but note:
